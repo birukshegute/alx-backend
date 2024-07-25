@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Creates a class LRUCache that inherits from BaseCaching
+Create a class MRUCache that inherits from BaseCaching
 """
 
 
@@ -8,9 +8,9 @@ from collections import OrderedDict
 from base_caching import BaseCaching
 
 
-class LRUCache(BaseCaching):
+class MRUCache(BaseCaching):
     """
-    A LRU caching system class that inherits from BaseCaching
+    A MRU caching system class that inherits from BaseCaching
     """
     def __init__(self):
         super().__init__()
@@ -24,8 +24,8 @@ class LRUCache(BaseCaching):
             return
         if key not in self.cache_data:
             if len(self.cache_data) + 1 > BaseCaching.MAX_ITEMS:
-                lru_key, _ = self.cache_data.popitem(True)
-                print("DISCARD:", lru_key)
+                mru_key, _ = self.cache_data.popitem(False)
+                print("DISCARD:", mru_key)
             self.cache_data[key] = item
             self.cache_data.move_to_end(key, last=False)
         else:

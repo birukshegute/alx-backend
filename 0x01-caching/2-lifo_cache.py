@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Caching system using LIFO
+Creates a class LIFOCache that inherits from BaseCaching
 """
 
 from collections import OrderedDict
@@ -9,7 +9,7 @@ from base_caching import BaseCaching
 
 class LIFOCache(BaseCaching):
     """
-    Inherits from BaseCaching and it works lifo
+    A LIFO caching system class that inherits from BaseCaching
     """
     def __init__(self):
         super().__init__()
