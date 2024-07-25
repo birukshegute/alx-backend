@@ -21,7 +21,7 @@ class FIFOCache(BaseCaching):
         assign to the dictionary self.cache_data
         """
         if key is None and item is None:
-            return None
+            return
         self.cache_data[key] = item
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
             first_key, _ = self.cache_data.popitem(last=False)
