@@ -8,6 +8,7 @@ from flask import g
 from flask import request
 from flask import render_template
 from flask_babel import Babel
+import pytz
 from typing import Dict, Union
 
 
@@ -57,15 +58,25 @@ def get_locale() -> str:
     """
     Determine the best match with our supported languages.
     """
-    opt = [
-        request.args.get('locale', '').strip(),
-        g.user.get('locale', None) if g.user else None,
-        request.accept_languages.best_match(app.config['LANGUAGES']),
-        Config.BABEL_DEFAULT_LOCALE
-    ]
-    for locale in opt:
-        if locale and locale in Config.LANGUAGES:
-            return locale
+    locale = request.args.get('locale')
+    if locale and locale in Config.LANGUAGES:
+        return locale
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+
+@babel.timezoneselector
+def get_timezone() -> str:
+    """
+    Define a get_timezone function
+    """
+    timezone = request.args.get('timezone')
+    if not timezone and g.user:
+        timezone = g.user['timezone']
+    try:
+        return pytz.timezone(timezone).zone
+    except pytz.exceptions.UnknownTimeZoneError:
+        return app.config['BABEL_DEFAULT_TIMEZONE']
+
 
 
 @app.route('/', strict_slashes=False)
@@ -73,7 +84,7 @@ def index() -> str:
     """
     Route index from templates
     """
-    return render_template('6-index.html')
+    return render_template('7-index.html')
 
 
 if __name__ == '__main__':
