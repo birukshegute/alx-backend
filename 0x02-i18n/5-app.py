@@ -56,7 +56,7 @@ def get_locale() -> str:
     """
     Determine the best match with our supported languages.
     """
-    locale = request.args.get('locale', '').strip()
+    locale = request.args.get('locale')
     if locale and locale in Config.LANGUAGES:
         return locale
     return request.accept_languages.best_match(app.config['LANGUAGES'])
@@ -71,4 +71,4 @@ def index() -> str:
 
 
 if __name__ == '__main__':
-    app.run(port="5000", host="0.0.0.0", debug=True)
+    app.run(debug=True)
