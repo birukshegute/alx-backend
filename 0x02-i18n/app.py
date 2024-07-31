@@ -3,11 +3,13 @@
 Starts a Flask web application
 """
 
+import datetime
 from flask import Flask
 from flask import g
 from flask import request
 from flask import render_template
 from flask_babel import Babel
+from flask_babel import format_datetime
 import pytz
 from typing import Dict, Union
 
@@ -51,6 +53,7 @@ def before_request():
     Retrieves the value of the login_as and Calls the get_user function
     """
     g.user = get_user()
+    g.time = format_datetime()
 
 
 @babel.localeselector
@@ -83,7 +86,7 @@ def index() -> str:
     """
     Route index from templates
     """
-    return render_template('7-index.html')
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
