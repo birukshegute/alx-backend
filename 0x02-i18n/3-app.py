@@ -4,6 +4,7 @@ Starts a Flask web application
 """
 
 from flask import Flask
+from flask import request
 from flask import render_template
 from flask_babel import Babel
 
@@ -36,7 +37,7 @@ def index() -> str:
     """
     Route index from templates
     """
-    return render_template('2-index.html')
+    return render_template('3-index.html')
 
 
 if __name__ == '__main__':
